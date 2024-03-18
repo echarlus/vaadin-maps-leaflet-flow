@@ -172,6 +172,7 @@ public class LeafletView extends VerticalLayout
 		this.markerLeberkaese.setPopup("Fast food like Leberkäsesemmeln");
 		
 		this.map = new LMap(49.675126, 12.160733, 17);
+		this.map.showScale();
 		this.map.setTileLayer(LTileLayer.DEFAULT_OPENSTREETMAP_TILE);
 		this.map.enableMarkerCluster(true);
 		

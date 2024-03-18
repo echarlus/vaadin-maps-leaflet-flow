@@ -70,6 +70,7 @@ public class LMap extends Component implements HasSize, HasStyle, HasComponents
 	private final List<LComponent> components = new ArrayList<>();
 	private boolean clusterEnabled = false;
 	private boolean clusterLayerAdded = false;
+	private boolean scaleShown = false;
 	
 	public LMap()
 	{
@@ -118,6 +119,14 @@ public class LMap extends Component implements HasSize, HasStyle, HasComponents
 			+ ");");
 	}
 	
+	public void showScale()
+	{
+		if (scaleShown == false)
+		{
+			this.getElement().executeJs("L.control.scale({imperial:false}).addTo(" + CLIENT_MAP + ");");
+			scaleShown = true;
+		}
+	}
 	/**
 	 * Creates the MarkerClusterGroup layer to enable clustering LMarkers clustering
 	 * @param showAlerts : if true, Cluster color will depend on the alert state of its LMarkers (defined by custom CSS) if false, default MarkerCluster css is used
