@@ -150,6 +150,10 @@ public class LeafletView extends VerticalLayout
 		
 		this.markerRathaus = new LMarker(49.675519, 12.163868, "L-22556");
 		this.markerRathaus.setPopup("Old Town Hall");
+		this.markerRathaus.setTag("rathaus");
+		this.map.addMarkerMovedListener(e-> {
+			System.out.printf("Marker %s moved to %f,%f%n", e.getTag(), e.getLat(), e.getLon());
+		});
 		
 		this.circleRange = new LCircle(49.675126, 12.160733, 450);
 		

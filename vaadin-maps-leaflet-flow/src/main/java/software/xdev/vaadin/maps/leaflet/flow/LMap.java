@@ -367,6 +367,40 @@ public class LMap extends Component implements HasSize, HasStyle, HasComponents
 		}
 	}
 	
+	
+	@ClientCallable
+	protected void onMarkerDragged(final String tag, final double lat, final double lng)
+	{
+		ComponentUtil.fireEvent(this, new MarkerMovedEvent(this, true, tag, lat, lng));
+	}
+	
+	public Registration addMarkerMovedListener(final ComponentEventListener<MarkerMovedEvent> listener)
+	{
+		return ComponentUtil.addListener(this, MarkerMovedEvent.class, listener);
+	}
+	
+	public class MarkerMovedEvent extends ComponentEvent<LMap>
+	{
+		private final String tag;
+		private final double lat;
+		private final double lng;
+		
+		public MarkerMovedEvent(final LMap source, final boolean fromClient, final String tag, final double lat, final double lng)
+		{
+			super(source, fromClient);
+			this.tag = tag;
+			this.lat = lat;
+			this.lng = lng;
+		}
+		
+		public String getTag()
+		{
+			return this.tag;
+		}
+		public double getLat() { return this.lat;}
+		public double getLon() { return this.lng;}
+	}
+	
 	@Override
 	protected void onAttach(final AttachEvent attachEvent)
 	{

@@ -23,6 +23,7 @@ public class LMarkerOptions
 	private String tooltip;
 	private LIcon icon;
 	private boolean alertState = false;
+	private boolean draggable = false;
 	
 	public LMarkerOptions()
 	{
@@ -65,5 +66,12 @@ public class LMarkerOptions
 	
 	public boolean getAlertState() {
 		return this.alertState;
+	}
+	
+	public void setDraggable(boolean draggable) {
+		this.draggable = draggable;
+	}
+	public boolean getDraggable() {
+		return this.draggable;
 	}
 }

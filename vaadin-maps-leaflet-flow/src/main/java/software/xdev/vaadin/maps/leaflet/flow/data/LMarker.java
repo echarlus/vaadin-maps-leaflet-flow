@@ -132,6 +132,14 @@ public class LMarker implements LComponent
 		return this.properties.getTooltip();
 	}
 	
+	public void setDraggable(boolean draggable) {
+		this.properties.setDraggable(draggable);
+	}
+	
+	public boolean getDraggable() {
+		return this.properties.getDraggable();
+	}
+	
 	/**
 	 * Sets a Tooltip to the Marker
 	 *
@@ -174,7 +182,8 @@ public class LMarker implements LComponent
 		final ObjectMapper mapper = new ObjectMapper();
 		return "let item = L.marker("
 			+ mapper.writeValueAsString(this.geometry.getCoordinates()) + ","
-			+ "{icon: "
+			+ "{draggable:"+this.properties.getDraggable()+","
+			+ "icon: "
 			+ "new L."
 			+ (this.properties.getIcon() instanceof LDivIcon ? "divIcon" : "Icon")
 			+ "(" + mapper.writeValueAsString(this.properties.getIcon()) + ")"
@@ -183,7 +192,9 @@ public class LMarker implements LComponent
 			+ "item.options.alert_state="+this.properties.getAlertState()+";"
 			+ (this.getTag() != null && !this.getTag().isBlank()
 			? ("\nvar vaadinServer = this.$server;"
-			+ "\nitem.on('click', function (e) { vaadinServer.onMarkerClick('" + this.tag + "') });")
+			+ "\nitem.on('click', function (e) { vaadinServer.onMarkerClick('" + this.tag + "')});"
+			+ "\nitem.on('dragend', function (e) { var pos = e.target.getLatLng(); vaadinServer.onMarkerDragged('" + this.tag + "', pos.lat,pos.lng)});"
+		)
 			: "");
 	}
 }
